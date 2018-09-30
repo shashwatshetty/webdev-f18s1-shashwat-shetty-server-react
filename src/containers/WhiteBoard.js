@@ -61,7 +61,10 @@ export default class WhiteBoard extends Component {
 
                         <Route path="/course/grid"
                                render={() =>
-                                   <CourseGrid/>}/>
+                                   <CourseGrid
+                                       courses={this.state.courses}
+                                       deleteCourse={this.deleteCourse}
+                                       addCourse={this.addCourse}/>}/>
                         <Route
                             exact
                             render={(props) =>
