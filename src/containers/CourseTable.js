@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import CourseRow from "../components/CourseRow";
+import CourseAdd from "../components/CourseAdd";
 
 export default class CourseTable extends Component {
     constructor(props) {
         super(props);
+        this.addCourse = this.props.addCourse
     }
 
     render(){
@@ -11,6 +13,8 @@ export default class CourseTable extends Component {
             <div>
                 <table className="table">
                     <thead>
+                        <CourseAdd
+                            addCourse={this.addCourse}/>
                         <tr>
                             <th scope="col">Course Title</th>
                             <th scope="col">Owned By</th>
