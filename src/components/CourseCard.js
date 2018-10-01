@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React from 'react'
+import {Link} from "react-router-dom";
 
 const CourseCard = ({course, index, deleteCourse, updateCourseId}) =>
     <div id={index} className="card" styles={{width: '18rem'}}>
@@ -17,10 +18,11 @@ const CourseCard = ({course, index, deleteCourse, updateCourseId}) =>
                     </button>
                 </div>
                 <div className="form-group">
-                    <button className="btn btn-primary"
-                            onClick={() => updateCourseId(course.id)}>
+                    <Link className="btn btn-primary"
+                          onClick={updateCourseId(course.id)}
+                          to={`/${course.id}/edit`}>
                         Edit
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>
