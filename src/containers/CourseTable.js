@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import CourseRow from "../components/CourseRow";
-import CourseAdd from "../components/CourseAdd";
 
 export default class CourseTable extends Component {
     constructor(props) {
@@ -10,8 +9,6 @@ export default class CourseTable extends Component {
     render(){
         return (
             <div>
-                <CourseAdd
-                    addCourse={this.props.addCourse}/>
                 <table className="table">
                     <thead>
                         <tr>
@@ -25,7 +22,8 @@ export default class CourseTable extends Component {
                         { this.props.courses.map((course, key) =>
                             <CourseRow course={course}
                                        key={key}
-                                       deleteCourse={this.props.deleteCourse}/>
+                                       deleteCourse={this.props.deleteCourse}
+                                       updateCourseId={this.props.updateCourseId}/>
                         )}
                     </tbody>
                 </table>
