@@ -14,16 +14,20 @@ export default class CourseAdd extends Component {
 
     render() {
         return(
-            <div>
-                <input
-                    onChange={this.updateForm}
-                    className="form-control"/>
-                <button
-                    onClick={() => this.props.addCourse({
-                        id: (new Date()).getTime() + '',
-                        title: this.state.title
-                    })}
-                    className="btn btn-success">Add</button>
+            <div className="row">
+                <div className="col">
+                    <input
+                        onChange={this.updateForm}
+                        className="form-control"/>
+                </div>
+                <div className="col">
+                    <button
+                        onClick={() => this.props.addCourse({
+                            id: (new Date()).getTime() + '',
+                            title: this.state.title
+                        })}
+                        className="btn btn-success">Add</button>
+                </div>
             </div>
         )
     }
