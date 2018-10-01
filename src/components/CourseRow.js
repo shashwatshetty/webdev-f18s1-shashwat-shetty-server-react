@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from "react-router-dom";
+import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 
 const CourseRow = ({course, index, deleteCourse, updateCourseId}) =>
     <tr id={index}>
@@ -17,7 +17,9 @@ const CourseRow = ({course, index, deleteCourse, updateCourseId}) =>
                     </button>
                 </div>
                 <div className="col">
-                    <Link className="btn btn-primary" to={`/course/${course.id}/edit`} onClick={() => updateCourseId(course.id)}>
+                    <Link className="btn btn-primary"
+                          onClick={updateCourseId(course.id)}
+                          to={`/${course.id}/edit`}>
                         Edit
                     </Link>
                 </div>
