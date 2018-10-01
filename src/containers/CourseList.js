@@ -31,15 +31,8 @@ export default class CourseList extends Component {
         })
     }
 
-    deleteModule = module =>{
-        this.courseService.deleteModule(module)
-        let newCourseList = this.courseService.findAllCourses()
-        this.setState({
-            courses: newCourseList
-        })
-    }
-
     updateCourse = course => {
+        console.log(course.id)
         this.course = course
     }
 
