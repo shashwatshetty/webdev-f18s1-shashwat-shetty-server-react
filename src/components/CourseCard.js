@@ -19,7 +19,7 @@ const CourseCard = ({course, index, deleteCourse, updateCourse}) =>
                 </div>
                 <div className="form-group">
                     <Link className="btn btn-primary"
-                          onClick={updateCourse(course)}
+                          onClick={() => updateCourse(course)}
                           to={`/${course.id}/edit`}>
                         Edit
                     </Link>

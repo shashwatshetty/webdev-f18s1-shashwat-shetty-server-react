@@ -16,9 +16,10 @@ const CourseRow = ({course, index, deleteCourse, updateCourse}) =>
                         </span>
                     </button>
                 </div>
+                {console.log(course.id)}
                 <div className="col">
                     <Link className="btn btn-primary"
-                          onClick={updateCourse(course)}
+                          onClick={() => updateCourse(course)}
                           to={`/${course.id}/edit`}>
                         Edit
                     </Link>
