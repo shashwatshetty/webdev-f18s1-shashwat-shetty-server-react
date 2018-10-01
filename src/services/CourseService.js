@@ -56,13 +56,13 @@ export default class CourseService {
             course => course.id !== courseId
         )
 
-    deleteModule = moduleToDelete => {
-        courses = courses.map(course => {
-            course.modules = course.modules.filter(
-                module => module !== moduleToDelete
-            )
-
-            return course;
-        })
+    findAllModules = selectedCourse => {
+        let c = {};
+        courses.map(course => {
+            if (course.id === selectedCourse.id) {
+                c = course;
+            }
+        });
+        return c.modules
     }
 }
