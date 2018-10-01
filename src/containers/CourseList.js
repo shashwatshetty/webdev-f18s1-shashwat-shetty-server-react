@@ -12,7 +12,7 @@ export default class CourseList extends Component {
     constructor(props) {
         super(props);
         this.courseService = new CourseService();
-        this.courseId = ''
+        this.course = null
         this.state = {
             courses: this.courseService.findAllCourses()
         }
@@ -39,8 +39,8 @@ export default class CourseList extends Component {
         })
     }
 
-    updateCourseId = courseId => {
-        this.courseId = courseId
+    updateCourse = course => {
+        this.course = course
     }
 
     render() {
@@ -56,7 +56,7 @@ export default class CourseList extends Component {
                         render={(props) =>
                             <CourseEditor
                                 {...props}
-                                courseId={this.courseId}
+                                course={this.course}
                                 courses={this.state.courses}/>}/>
 
                     <div>
@@ -67,7 +67,7 @@ export default class CourseList extends Component {
                                            courses={this.state.courses}
                                            deleteCourse={this.deleteCourse}
                                            addCourse={this.addCourse}
-                                           updateCourseId={this.updateCourseId}/>}/>
+                                           updateCourse={this.updateCourse}/>}/>
                         </div>
                         <div>
                             <Route path="/courses/grid/"
@@ -76,7 +76,7 @@ export default class CourseList extends Component {
                                            courses={this.state.courses}
                                            deleteCourse={this.deleteCourse}
                                            addCourse={this.addCourse}
-                                           updateCourseId={this.updateCourseId}/>}/>
+                                           updateCourse={this.updateCourse}/>}/>
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,7 @@ export default class CourseTable extends Component {
                                     <CourseCard course={course}
                                                 key={key}
                                                 deleteCourse={this.props.deleteCourse}
-                                                updateCourseId={this.props.updateCourseId}/>
+                                                updateCourse={this.props.updateCourse}/>
                                 </div>
                             )}
                         </div>
