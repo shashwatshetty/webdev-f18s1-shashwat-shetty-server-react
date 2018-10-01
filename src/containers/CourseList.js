@@ -59,21 +59,6 @@ export default class CourseList extends Component {
                                 </div>
                             </div>
 
-                            <div className="col-md-12 col-lg-4 form-group">
-                                <input type="text"
-                                       className="form-control"
-                                       id="new-course"
-                                       placeholder="New Course Title"/>
-                            </div>
-
-                            <div className="col-md-6 col-lg-2 form-group">
-                                <button className="btn btn-danger"
-                                        type="submit"
-                                        id="add-course">
-                                    Add
-                                </button>
-                            </div>
-
                             <div className="col-md-6 col-lg-3 form-group">
                                 <div className="float-right">
                                     <Link to="/table" className="btn btn-primary ">
