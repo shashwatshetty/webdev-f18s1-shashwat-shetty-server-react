@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 
-const CourseCard = ({course, index, deleteCourse, updateCourseId}) =>
+const CourseCard = ({course, index, deleteCourse, updateCourse}) =>
     <div id={index} className="card" styles={{width: '18rem'}}>
         <img className="card-img-top"
              src="https://picsum.photos/300/200"/>
@@ -19,7 +19,7 @@ const CourseCard = ({course, index, deleteCourse, updateCourseId}) =>
                 </div>
                 <div className="form-group">
                     <Link className="btn btn-primary"
-                          onClick={updateCourseId(course.id)}
+                          onClick={updateCourse(course)}
                           to={`/${course.id}/edit`}>
                         Edit
                     </Link>

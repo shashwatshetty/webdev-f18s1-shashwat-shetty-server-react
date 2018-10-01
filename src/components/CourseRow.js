@@ -1,7 +1,7 @@
 import React from 'react'
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 
-const CourseRow = ({course, index, deleteCourse, updateCourseId}) =>
+const CourseRow = ({course, index, deleteCourse, updateCourse}) =>
     <tr id={index}>
         <th scope="row">{course.title}</th>
         <td>me</td>
@@ -18,7 +18,7 @@ const CourseRow = ({course, index, deleteCourse, updateCourseId}) =>
                 </div>
                 <div className="col">
                     <Link className="btn btn-primary"
-                          onClick={updateCourseId(course.id)}
+                          onClick={updateCourse(course)}
                           to={`/${course.id}/edit`}>
                         Edit
                     </Link>
