@@ -4,6 +4,7 @@ let courses = [
         title: 'CS5200',
         modules: [
             {
+                id: 'W1',
                 title: 'Week 1',
                 lessons: [
                     {
@@ -18,6 +19,7 @@ let courses = [
                 ]
             },
             {
+                id: 'W2',
                 title: 'Week 2',
                 lessons: [
                     {
@@ -32,6 +34,7 @@ let courses = [
                 ]
             },
             {
+                id: 'W2',
                 title: 'Week 3',
                 lessons: []
             }
@@ -64,5 +67,16 @@ export default class CourseService {
             }
         });
         return c.modules
+    }
+
+    findAllLessons = (selectedCourse, selectedModule) => {
+        let moduleList = this.findAllModules(selectedCourse);
+        let m = {}
+        moduleList.map(e => {
+            if (e === selectedModule) {
+                m = e;
+            }
+        });
+        return m.lessons
     }
 }
