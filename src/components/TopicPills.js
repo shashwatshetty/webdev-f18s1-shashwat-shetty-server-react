@@ -4,38 +4,32 @@ const TopicPills = () =>
     <div className="form-group">
         <ul className="nav nav-pills">
             <li className="nav-item">
-                <a className="nav-link active"
-                   href="#">
+                <a className="nav-link active">
                     Chapter-1
                 </a>
             </li>
             <li className="nav-item">
-                <a className="nav-link"
-                   href="#">
+                <a className="nav-link">
                     Chapter-2
                 </a>
             </li>
             <li className="nav-item">
-                <a className="nav-link"
-                   href="#">
+                <a className="nav-link">
                     Chapter-3
                 </a>
             </li>
             <li className="nav-item">
-                <a className="nav-link"
-                   href="#">
+                <a className="nav-link">
                     Chapter-4
                 </a>
             </li>
             <li className="nav-item">
-                <a className="nav-link disabled"
-                   href="#">
+                <a className="nav-link disabled">
                     Chapter-5
                 </a>
             </li>
             <li className="nav-item">
-                <a className="nav-link"
-                   href="#">
+                <a className="nav-link">
                     Add
                 </a>
             </li>
