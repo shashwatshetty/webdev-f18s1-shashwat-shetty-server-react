@@ -1,47 +1,8 @@
 import React from 'react'
+import TopicPills from "./TopicPills";
 
 const WidgetList = () =>
-    <div className="col-9">
-        <div className="form-group">
-            <ul className="nav nav-pills">
-                <li className="nav-item">
-                    <a className="nav-link active"
-                       href="#">
-                        Chapter-1
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link"
-                       href="#">
-                        Chapter-2
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link"
-                       href="#">
-                        Chapter-3
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link"
-                       href="#">
-                        Chapter-4
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link disabled"
-                       href="#">
-                        Chapter-5
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link"
-                       href="#">
-                        Add
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <div className="form-row">
         <div className="form-group">
             <div className="row justify-content-start">
                 <div className="col-1">
