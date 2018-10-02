@@ -3,30 +3,25 @@ import React, {Component} from 'react'
 export default class ModuleAdd extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            title: ''
-        }
+        this.updateForm = this.props.updateForm
+        this.updateModule = this.props.updateModule
     }
-    updateForm = event =>
-        this.setState({
-            title: event.target.value
-        })
 
     render() {
         return(
-            <div className="row">
-                <div className="col-sm-6 col-md-7 col-lg-7 form-group">
+            <div className="form-row form-group justify-content-between">
                     <input
+                        placeholder="Add/Update Module"
                         onChange={this.updateForm}
                         className="form-control"/>
-                </div>
-                <div className="col-sm-6 col-md-5 col-lg-5 form-group">
-                    <button onClick={() => this.props.addModule({
-                        title: this.state.title === "" ? "New Module" : this.state.title})}
-                            className="btn btn-danger">
-                        Add
+                    <button onClick={() => this.props.addModule()}
+                            className="btn btn-danger form-group">
+                        <i className="fa fa-plus"></i>
                     </button>
-                </div>
+                    <button onClick={() => this.props.updateModule()}
+                            className="btn btn-danger form-group">
+                        <i className="fa fa-check"></i>
+                    </button>
             </div>
         )
     }
