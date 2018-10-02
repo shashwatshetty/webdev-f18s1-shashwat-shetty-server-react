@@ -51,6 +51,24 @@ export default class CourseService {
     findAllCourses = () =>
         courses
 
+    findCourseById = id => {
+        let c = {};
+        courses.map(course => {
+            if (course.id === id) {
+                c = course;
+            }
+        });
+        return c
+    }
+
+    updateCourse = (id, course) => {
+        courses = courses.map(c => {
+            if (c.id === id) {
+                c = course;
+            }
+        });
+    }
+
     createCourse = course =>
         courses.push(course)
 
