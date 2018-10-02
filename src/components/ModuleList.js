@@ -10,6 +10,7 @@ export default class ModuleList extends Component{
         this.addModule = this.props.addModule
         this.deleteModule = this.props.deleteModule
         this.editModule = this.props.editModule
+        this.setLessons = this.props.setLessons
         this.updateModule = this.props.updateModule
     }
 
@@ -23,11 +24,13 @@ export default class ModuleList extends Component{
                 <ul className="nav flex-column nav-pills">
                     {
                         this.modules.map((module, key) =>
-                            <ModuleListItem module={module}
-                                            updateFormText={this.updateFormText}
-                                            deleteModule={this.deleteModule}
-                                            editModule={this.editModule}
-                                            key={key}/>
+                            <ModuleListItem
+                                course={this.props.course}
+                                module={module}
+                                setLessons={this.setLessons}
+                                deleteModule={this.deleteModule}
+                                editModule={this.editModule}
+                                key={key}/>
                         )}
                 </ul>
             </div>

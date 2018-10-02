@@ -1,7 +1,11 @@
 import React from 'react'
+import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 
-const ModuleListItem = ({module, deleteModule, editModule,  index}) =>
-    <button id={index} className="btn btn-primary nav-link form-group">
+const ModuleListItem = ({course, module, setLessons, deleteModule, editModule,  index}) =>
+    <Link id={index}
+          to={`/${course.id}/edit/${module.id}`}
+          onClick={() => setLessons(module)}
+          className="btn btn-primary nav-link form-group">
         {module.title}
         <div className="row justify-content-between float-right">
             <button onClick={() => editModule(module)}
@@ -13,6 +17,6 @@ const ModuleListItem = ({module, deleteModule, editModule,  index}) =>
                 <i className="fa fa-window-close"></i>
             </button>
         </div>
-    </button>
+    </Link>
 
 export default ModuleListItem
