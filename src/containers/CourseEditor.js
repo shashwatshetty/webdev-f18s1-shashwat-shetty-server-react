@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import ModuleList from "../components/ModuleList";
-import CourseService from "../services/CourseService";
 import WidgetList from "../components/WidgetList";
 import LessonTabs from "../components/LessonTabs";
 import TopicPills from "../components/TopicPills";
@@ -9,14 +8,26 @@ import TopicPills from "../components/TopicPills";
 export default class CourseEditor extends Component {
     constructor(props) {
         super(props);
-        this.courseService = new CourseService();
-        this.course = this.props.course
-        this.selectedModule = {}
+        const course = this.props.course;
+        let selectedModule = {};
+        let selectedLesson = {};
+        let selectedTopic = {};
+        if(course.modules){
+            selectedModule = course.modules[0]
+        }
+        if(selectedModule && selectedModule.lessons){
+            selectedLesson = selectedModule.lessons[0]
+        }
+        if(selectedLesson && selectedLesson.topics){
+            selectedTopic = selectedLesson.topics[0]
+        }
         this.state = {
-            title: '',
-            module: {},
-            courses: this.courseService.findAllCourses(),
-            modules: this.courseService.findAllModules(this.course),
+            course: course,
+            currentModule: selectedModule,
+            currentLesson: selectedLesson,
+            currentTopic: selectedTopic,
+            moduleTitle: '',
+            modules: course.modules,
             lessons: []
         }
     }
@@ -24,13 +35,16 @@ export default class CourseEditor extends Component {
     updateForm = event =>
         this.setState({
             title: event.target.value
-        })
+        });
 
     addModule = () => {
-        let id = (new Date()).getTime()
-        let moduleToAdd = {id: id, title: this.state.title === "" ? "New Module" : this.state.title}
-        let moduleList = this.state.modules
-        moduleList.push(moduleToAdd)
+        let id = (new Date()).getTime();
+        let moduleToAdd = {
+            id: id,
+            title: this.state.moduleTitle === "" ? "New Module" : this.state.moduleTitle
+        }
+        let moduleList = this.state.modules;
+        moduleList.push(moduleToAdd);
         this.setState({
             modules: moduleList
         });
@@ -55,8 +69,8 @@ export default class CourseEditor extends Component {
     updateModule = () => {
         let moduleList = this.state.modules
         moduleList.map(module => {
-            if(module === this.selectedModule){
-                module.title = this.state.title
+            if(module === this.state.module){
+                module.title = this.state.moduleTitle
             }
         });
         this.setState({
@@ -80,7 +94,7 @@ export default class CourseEditor extends Component {
                             <div className="col-3">
                                 <div className="navbar-header">
                                     <h3 className="navbar-header">
-                                        {this.course.title}
+                                        {this.state.course.title}
                                     </h3>
                                 </div>
                             </div>
@@ -89,7 +103,7 @@ export default class CourseEditor extends Component {
                     <div className="container-fluid">
                         <div className="row">
                             <ModuleList
-                                course={this.course}
+                                course={this.state.course}
                                 updateForm={this.updateForm}
                                 setLessons={this.setLessons}
                                 addModule={this.addModule}
@@ -102,7 +116,7 @@ export default class CourseEditor extends Component {
                                        render={() =>
                                            <LessonTabs
                                                state={this.state}
-                                               course={this.course}
+                                               course={this.state.course}
                                                module={this.selectedModule}
                                                lessons={this.state.lessons}/>}/>
                                 <TopicPills/>
