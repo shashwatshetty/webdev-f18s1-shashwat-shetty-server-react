@@ -149,7 +149,7 @@ export default class CourseService {
     };
 
     static findAllLessons = (selectedCourse, selectedModule) => {
-        let moduleList = findAllModules(selectedCourse);
+        let moduleList = CourseService.findAllModules(selectedCourse);
         let m = {};
         moduleList.map(e => {
             if (e === selectedModule) {
@@ -159,12 +159,12 @@ export default class CourseService {
         return m.lessons
     };
 
-    static findAllWidgetsForTopic = topic => {
+    static findAllWidgetsForTopic = topicId => {
         for (let c in courses) {
             for (let m in courses[c].modules) {
                 for (let l in courses[c].modules[m].lessons) {
                     for (let t in courses[c].modules[m].lessons[l].topics) {
-                        if (courses[c].modules[m].lessons[l].topics[t].id === topic.id) {
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topicId) {
                             return courses[c].modules[m].lessons[l].topics[t].widgets
                         }
                     }
@@ -173,13 +173,13 @@ export default class CourseService {
         }
     };
 
-    static findWidget = widget => {
+    static findWidget = widgetId => {
         for (let c in courses) {
             for (let m in courses[c].modules) {
                 for (let l in courses[c].modules[m].lessons) {
                     for (let t in courses[c].modules[m].lessons[l].topics) {
                         for (let w in courses[c].modules[m].lessons[l].topics[t].widgets) {
-                            if (courses[c].modules[m].lessons[l].topics[t].widgets[w].id === widget.id) {
+                            if (courses[c].modules[m].lessons[l].topics[t].widgets[w].id === widgetId) {
                                 return courses[c].modules[m].lessons[l].topics[t].widgets[w]
                             }
                         }
@@ -189,12 +189,13 @@ export default class CourseService {
         }
     };
 
-    static createWidget = (topic, widget) => {
+    static createWidget = (topicId, widgetId) => {
         for (let c in courses) {
             for (let m in courses[c].modules) {
                 for (let l in courses[c].modules[m].lessons) {
                     for (let t in courses[c].modules[m].lessons[l].topics) {
-                        if (courses[c].modules[m].lessons[l].topics[t].id === topic.id) {
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topicId) {
+                            const widget = CourseService.findWidget(widgetId);
                             courses[c].modules[m].lessons[l].topics[t].widgets.push(widget)
                         }
                     }
@@ -203,13 +204,14 @@ export default class CourseService {
         }
     };
 
-    static updateWidget = (topic, widget) => {
+    static updateWidget = (topicId, widgetId) => {
         for (let c in courses) {
             for (let m in courses[c].modules) {
                 for (let l in courses[c].modules[m].lessons) {
                     for (let t in courses[c].modules[m].lessons[l].topics) {
-                        if (courses[c].modules[m].lessons[l].topics[t].id === topic.id) {
-                            const widgetIndex = courses[c].modules[m].lessons[l].topics[t].widgets.findIndex(w => w.id === widget.id);
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topicId) {
+                            const widgetIndex = courses[c].modules[m].lessons[l].topics[t].widgets.findIndex(w => w.id === widgetId);
+                            const widget = CourseService.findWidget(widgetId);
                             courses[c].modules[m].lessons[l].topics[t].widgets[widgetIndex] = widget;
                         }
                     }
@@ -218,13 +220,13 @@ export default class CourseService {
         }
     };
 
-    static deleteWidget = (topic, widget) => {
+    static deleteWidget = (topicId, widgetId) => {
         for (let c in courses) {
             for (let m in courses[c].modules) {
                 for (let l in courses[c].modules[m].lessons) {
                     for (let t in courses[c].modules[m].lessons[l].topics) {
-                        if (courses[c].modules[m].lessons[l].topics[t].id === topic.id) {
-                            const widgetIndex = courses[c].modules[m].lessons[l].topics[t].widgets.findIndex(w => w.id === widget.id);
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topicId) {
+                            const widgetIndex = courses[c].modules[m].lessons[l].topics[t].widgets.findIndex(w => w.id === widgetId);
                             courses[c].modules[m].lessons[l].topics[t].widgets.splice(widgetIndex, 1)
                         }
                     }
