@@ -13,14 +13,24 @@ const actionToPropertyMapper = dispatch => ({
         topic: topic
     }),
 
+    createWidget: (widget) => dispatch({
+        type: 'CREATE_WIDGET',
+        widget: widget
+    }),
+
     deleteWidget: (widget) => dispatch({
         type: 'DELETE_WIDGET',
         widget: widget
     }),
 
-    updateWidget: widget => dispatch({
+    updateWidget: (widget) => dispatch({
         type: 'UPDATE_WIDGET',
         widget: widget
+    }),
+
+    findWidget: (widgetId) => dispatch({
+        type: 'UPDATE_WIDGET',
+        widgetId: widgetId
     })
 });
 
