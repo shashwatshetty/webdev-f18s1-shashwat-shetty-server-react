@@ -149,7 +149,7 @@ export default class CourseService {
     };
 
     static findAllLessons = (selectedCourse, selectedModule) => {
-        let moduleList = this.findAllModules(selectedCourse);
+        let moduleList = findAllModules(selectedCourse);
         let m = {};
         moduleList.map(e => {
             if (e === selectedModule) {
@@ -157,5 +157,79 @@ export default class CourseService {
             }
         });
         return m.lessons
-    }
+    };
+
+    static findAllWidgetsForTopic = topic => {
+        for (let c in courses) {
+            for (let m in courses[c].modules) {
+                for (let l in courses[c].modules[m].lessons) {
+                    for (let t in courses[c].modules[m].lessons[l].topics) {
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topic.id) {
+                            return courses[c].modules[m].lessons[l].topics[t].widgets
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    static findWidget = widget => {
+        for (let c in courses) {
+            for (let m in courses[c].modules) {
+                for (let l in courses[c].modules[m].lessons) {
+                    for (let t in courses[c].modules[m].lessons[l].topics) {
+                        for (let w in courses[c].modules[m].lessons[l].topics[t].widgets) {
+                            if (courses[c].modules[m].lessons[l].topics[t].widgets[w].id === widget.id) {
+                                return courses[c].modules[m].lessons[l].topics[t].widgets[w]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    static createWidget = (topic, widget) => {
+        for (let c in courses) {
+            for (let m in courses[c].modules) {
+                for (let l in courses[c].modules[m].lessons) {
+                    for (let t in courses[c].modules[m].lessons[l].topics) {
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topic.id) {
+                            courses[c].modules[m].lessons[l].topics[t].widgets.push(widget)
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    static updateWidget = (topic, widget) => {
+        for (let c in courses) {
+            for (let m in courses[c].modules) {
+                for (let l in courses[c].modules[m].lessons) {
+                    for (let t in courses[c].modules[m].lessons[l].topics) {
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topic.id) {
+                            const widgetIndex = courses[c].modules[m].lessons[l].topics[t].widgets.findIndex(w => w.id === widget.id);
+                            courses[c].modules[m].lessons[l].topics[t].widgets[widgetIndex] = widget;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    static deleteWidget = (topic, widget) => {
+        for (let c in courses) {
+            for (let m in courses[c].modules) {
+                for (let l in courses[c].modules[m].lessons) {
+                    for (let t in courses[c].modules[m].lessons[l].topics) {
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topic.id) {
+                            const widgetIndex = courses[c].modules[m].lessons[l].topics[t].widgets.findIndex(w => w.id === widget.id);
+                            courses[c].modules[m].lessons[l].topics[t].widgets.splice(widgetIndex, 1)
+                        }
+                    }
+                }
+            }
+        }
+    };
 }
