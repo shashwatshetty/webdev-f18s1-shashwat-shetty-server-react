@@ -1,10 +1,15 @@
 import React from 'react'
 
-const LessonTabItem = ({lesson, key}) =>
+const LessonTabItem = ({key, lesson, selectedLesson, selectLesson, deleteLesson}) =>
     <li id={key} className="nav-item">
-        <button className="nav-link active">
+        <a className={(selectedLesson === lesson) ? "nav-link active" : "nav-link"}
+           onClick={() => selectLesson(lesson)}>
             {lesson.title}
-        </button>
-    </li>
+            &nbsp;&nbsp;
+            <a onClick={() => deleteLesson(lesson)}>
+                <i className="fa fa-window-close"/>
+            </a>
+        </a>
+    </li>;
 
 export default LessonTabItem
