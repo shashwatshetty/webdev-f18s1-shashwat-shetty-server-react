@@ -44,7 +44,10 @@ const WidgetReducer = (state = {widgets: []}, action) => {
             }
             return {
                 allWidgets: allWidgets
-            }
+            };
+
+        default:
+            return state
     }
 };
 
