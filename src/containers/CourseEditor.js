@@ -1,8 +1,14 @@
 import React, {Component} from 'react'
 import ModuleList from "../components/ModuleList";
-import WidgetList from "../components/WidgetList";
 import LessonTabs from "../components/LessonTabs";
 import TopicPills from "../components/TopicPills";
+
+import WidgetReducer from "../reducers/WidgetReducer"
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+import WidgetListContainer from "../containers/WidgetListContainer"
+
+const store = createStore(WidgetReducer)
 
 export default class CourseEditor extends Component {
     constructor(props) {
@@ -68,7 +74,10 @@ export default class CourseEditor extends Component {
 
         let moduleList = this.state.modules;
         moduleList.push(moduleToAdd);
+        let currentCourse = this.state.course;
+        currentCourse.modules = moduleList;
         this.setState({
+            course: currentCourse,
             modules: moduleList
         });
     };
@@ -147,7 +156,7 @@ export default class CourseEditor extends Component {
 
     selectTopic = topic =>
         this.setState({
-            selectedTopic: topic
+            currentTopic: topic
         });
 
     addTopic = () => {
@@ -224,7 +233,15 @@ export default class CourseEditor extends Component {
                             updateTopic={this.updateTopic}/>
                         <br/>
 
-                        <WidgetList/>
+
+                        <Provider store={store}>
+                            <div>
+                                {console.log(this.state)}
+                                <WidgetListContainer
+                                    topic={this.state.currentTopic}/>
+                            </div>
+                        </Provider>
+
                     </div>
                 </div>
             </div>

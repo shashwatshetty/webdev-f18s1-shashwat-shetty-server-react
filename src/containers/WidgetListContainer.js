@@ -1,15 +1,13 @@
 import React from 'react'
 import WidgetList from "../components/WidgetList";
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 
 const stateToPropertyMapper = state => ({
-    widgets: state.widgets
+    currentWidgets: state.widgets
 });
-
 const actionToPropertyMapper = dispatch => ({
-    findAllWidgetsForTopic: (widgets, topic) => dispatch({
+    findAllWidgetsForTopic: (topic) => dispatch({
         type: 'FIND_ALL_WIDGETS_FOR_TOPIC',
-        widgets: widgets,
         topic: topic
     }),
 

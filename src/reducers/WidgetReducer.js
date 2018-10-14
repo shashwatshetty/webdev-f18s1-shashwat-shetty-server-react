@@ -1,7 +1,8 @@
 import CourseService from "../services/CourseService";
 
 const WidgetReducer = (state = {widgets: []}, action) => {
-    switch(action.type) {
+    console.log(state)
+    switch (action.type) {
         case 'FIND_ALL_WIDGETS_FOR_TOPIC':
             return {
                 widgets: CourseService.findAllWidgetsForTopic(action.topic.id),
@@ -37,8 +38,8 @@ const WidgetReducer = (state = {widgets: []}, action) => {
 
         case 'FIND_ALL_WIDGETS':
             let allWidgets = []
-            for(let t in this.state.currentLesson.topics) {
-                for(let w in this.state.currentLesson.topics[t].widgets) {
+            for (let t in this.state.currentLesson.topics) {
+                for (let w in this.state.currentLesson.topics[t].widgets) {
                     allWidgets.push(this.state.currentLesson.topics[t].widgets[w])
                 }
             }
