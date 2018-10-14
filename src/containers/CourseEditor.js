@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
 import ModuleList from "../components/ModuleList";
 import WidgetList from "../components/WidgetList";
 import LessonTabs from "../components/LessonTabs";
@@ -12,23 +11,30 @@ export default class CourseEditor extends Component {
         let selectedModule = {};
         let selectedLesson = {};
         let selectedTopic = {};
-        if(course.modules){
+        let lessons = [];
+        let topics = [];
+
+        if (course.modules) {
             selectedModule = course.modules[0]
         }
-        if(selectedModule && selectedModule.lessons){
+        if (selectedModule && selectedModule.lessons) {
+            lessons = selectedModule.lessons;
             selectedLesson = selectedModule.lessons[0]
         }
-        if(selectedLesson && selectedLesson.topics){
+        if (selectedLesson && selectedLesson.topics) {
+            topics = selectedLesson.topics;
             selectedTopic = selectedLesson.topics[0]
         }
+
         this.state = {
             course: course,
             currentModule: selectedModule,
             currentLesson: selectedLesson,
             currentTopic: selectedTopic,
-            moduleTitle: '',
+            title: '',
             modules: course.modules,
-            lessons: []
+            lessons: lessons,
+            topics: topics
         }
     }
 
@@ -37,95 +43,191 @@ export default class CourseEditor extends Component {
             title: event.target.value
         });
 
+    // CRUD for Modules
+
+    selectModule = module => {
+        let lessonList = module.lessons ? module.lessons : [];
+        let lesson = (lessonList && lessonList.length > 0) ? lessonList[0] : {};
+        let topicList = (lesson && lesson.topics) ? lesson.topics : [];
+        let topic = (topicList && topicList.length > 0) ? topicList[0] : {};
+        this.setState({
+            currentModule: module,
+            lessons: lessonList,
+            currentLesson: lesson,
+            topics: topicList,
+            currentTopic: topic
+        });
+    };
+
     addModule = () => {
         let id = (new Date()).getTime();
         let moduleToAdd = {
             id: id,
-            title: this.state.moduleTitle === "" ? "New Module" : this.state.moduleTitle
-        }
+            title: this.state.title === "" ? "New Module" : this.state.title,
+        };
+
         let moduleList = this.state.modules;
         moduleList.push(moduleToAdd);
         this.setState({
             modules: moduleList
         });
-        console.log(this.state.modules.length)
-    }
+    };
 
     deleteModule = moduleToDelete => {
-        let moduleList = this.state.modules
-        moduleList.splice(moduleList.indexOf(moduleToDelete), 1)
+        let moduleList = this.state.modules;
+        moduleList.splice(moduleList.indexOf(moduleToDelete), 1);
         this.setState({
-            modules: moduleList
+            currentModule: {},
+            currentLesson: {},
+            currentTopic: {},
+            modules: moduleList,
+            lessons: [],
+            topics: []
         });
-        console.log(this.state.modules.length)
-    }
-
-    editModule = moduleToEdit => {
-        this.setState({
-            module: moduleToEdit
-        })
-    }
+    };
 
     updateModule = () => {
-        let moduleList = this.state.modules
+        let moduleList = this.state.modules;
         moduleList.map(module => {
-            if(module === this.state.module){
-                module.title = this.state.moduleTitle
+            if (module === this.state.currentModule) {
+                module.title = this.state.title
             }
         });
         this.setState({
             modules: moduleList
         });
-    }
+    };
 
-    setLessons = moduleSelected => {
+    // CRUD for Lessons
+
+    selectLesson = lesson => {
         this.setState({
-            lessons: moduleSelected.lessons
+            currentLesson: lesson,
+            topics: lesson.topics ? lesson.topics : [],
+            currentTopic: (lesson.topics && lesson.topics.length > 0) ? lesson.topics[0] : {}
         });
-        console.log(this.state.lessons)
-    }
+    };
 
-    render(){
+    addLesson = () => {
+        let id = (new Date()).getTime();
+        let lessonToAdd = {
+            id: id,
+            title: this.state.title === "" ? "New Lesson" : this.state.title,
+        };
+
+        let lessonList = this.state.lessons;
+        lessonList.push(lessonToAdd);
+        this.setState({
+            lessons: lessonList
+        });
+    };
+
+    deleteLesson = lessonToBeDeleted => {
+        let lessonList = this.state.lessons;
+        lessonList.splice(lessonList.indexOf(lessonToBeDeleted), 1);
+        this.setState({
+            lessons: lessonList,
+            topics: []
+        });
+    };
+
+    updateLesson = () => {
+        let lessonList = this.state.lessons;
+        lessonList.map(lesson => {
+            if (lesson === this.state.currentLesson) {
+                lesson.title = this.state.title
+            }
+        });
+        this.setState({
+            lessons: lessonList
+        });
+    };
+
+    // CRUD for Topics
+
+    selectTopic = topic =>
+        this.setState({
+            selectedTopic: topic
+        });
+
+    addTopic = () => {
+        let id = (new Date()).getTime();
+        let topicToAdd = {
+            id: id,
+            title: this.state.title === "" ? "New Topic" : this.state.title,
+        };
+
+        let topicList = this.state.topics;
+        topicList.push(topicToAdd);
+        this.setState({
+            topics: topicList
+        });
+    };
+
+    deleteTopic = topicToBeDeleted => {
+        let topicList = this.state.topics;
+        topicList.splice(topicList.indexOf(topicToBeDeleted), 1);
+        this.setState({
+            topics: topicList
+        });
+    };
+
+    updateTopic = () => {
+        let topicList = this.state.topics;
+        topicList.map(topic => {
+            if (topic === this.state.currentTopic) {
+                topic.title = this.state.title
+            }
+        });
+        this.setState({
+            topics: topicList
+        });
+    };
+
+    render() {
         return (
-            <Router>
-                <div className="container-fluid">
-                    <nav className="navbar navbar-default navbar-fixed-top">
-                        <div className="container-fluid row">
-                            <div className="col-3">
-                                <div className="navbar-header">
-                                    <h3 className="navbar-header">
-                                        {this.state.course.title}
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <ModuleList
-                                course={this.state.course}
-                                updateForm={this.updateForm}
-                                setLessons={this.setLessons}
-                                addModule={this.addModule}
-                                deleteModule={this.deleteModule}
-                                editModule={this.editModule}
-                                updateModule={this.updateModule}
-                                modules={this.state.modules}/>
-                            <div className="col-9">
-                                <Route exact path="/:courseId/edit/:moduleId"
-                                       render={() =>
-                                           <LessonTabs
-                                               state={this.state}
-                                               course={this.state.course}
-                                               module={this.selectedModule}
-                                               lessons={this.state.lessons}/>}/>
-                                <TopicPills/>
-                                <WidgetList/>
-                            </div>
-                        </div>
+            <div className="container-fluid">
+                <h3 className="navbar-header">
+                    {this.state.course.title}
+                </h3>
+                <div className="row">
+                    <div className="col-4">
+                        <ModuleList
+                            course={this.state.course}
+                            modules={this.state.modules}
+                            updateForm={this.updateForm}
+                            selectModule={this.selectModule}
+                            addModule={this.addModule}
+                            deleteModule={this.deleteModule}
+                            updateModule={this.updateModule}/>
+                    </div>
+
+                    <div className="col-8">
+                        <LessonTabs
+                            lessons={this.state.lessons}
+                            selectedLesson={this.state.currentLesson}
+                            updateForm={this.updateForm}
+                            selectLesson={this.selectLesson}
+                            addLesson={this.addLesson}
+                            deleteLesson={this.deleteLesson}
+                            updateLesson={this.updateLesson}/>
+
+                        <br/>
+
+                        <TopicPills
+                            topics={this.state.topics}
+                            selectedTopic={this.state.currentTopic}
+                            updateForm={this.updateForm}
+                            selectTopic={this.selectTopic}
+                            addTopic={this.addTopic}
+                            deleteTopic={this.deleteTopic}
+                            updateTopic={this.updateTopic}/>
+                        <br/>
+
+                        <WidgetList/>
                     </div>
                 </div>
-            </Router>
+            </div>
         )
     }
 }
