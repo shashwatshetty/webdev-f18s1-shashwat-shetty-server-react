@@ -4,6 +4,7 @@ import ListWidget from "./ListWidget";
 import ImageWidget from "./ImageWidget"
 import LinkWidget from "./LinkWidget";
 import ParagraphWidget from "./ParagraphWidget";
+import CourseService from "../services/CourseService";
 
 class WidgetList extends React.Component {
     constructor(props) {
@@ -30,26 +31,31 @@ class WidgetList extends React.Component {
     widgetTypeChange = (event) => {
         let id = event.target.id;
         let newType = parseInt(event.target.value);
-        let newWidget;
+        let newWidget = CourseService.findWidget(id);
+        console.log(this.props);
         switch(newType) {
             case 0:
                 newWidget = {
                     id: id,
+                    title: newWidget.title,
+                    text: newWidget.text,
                     type: 'HEADING',
-                    size: 1,
-                    text: 'Default text'
+                    size: 1
                 };
                 break;
             case 1:
                 newWidget = {
                     id: id,
+                    title: newWidget.title,
                     type: 'PARAGRAPH',
-                    text: ''
+                    text: newWidget.text
                 };
                 break;
             case 2:
                 newWidget = {
                     id: id,
+                    title: newWidget.title,
+                    text: newWidget.text,
                     type: 'LIST',
                     options: ''
                 };
@@ -57,19 +63,19 @@ class WidgetList extends React.Component {
             case 3:
                 newWidget = {
                     id: id,
+                    title: newWidget.title,
                     type: 'IMAGE',
-                    imgUrl: ''
+                    text: newWidget.text
                 };
                 break;
             case 4:
                 newWidget = {
                     id: id,
+                    title: newWidget.title,
                     type: 'LINK',
-                    linkUrl: ''
+                    text: newWidget.text,
                 };
                 break;
-            default:
-                newWidget = this.props.findWidget(id);
         }
         this.props.updateWidget(newWidget);
     };
@@ -113,7 +119,7 @@ class WidgetList extends React.Component {
                                     </button>
                                     <select id={widget.id} className="form-control widget-type"
                                             onChange={this.widgetTypeChange}
-                                            ref={node => widgetType = node}>
+                                            title={widget.title}>
                                         <option value={0}>Heading</option>
                                         <option value={1}>Paragraph</option>
                                         <option value={2}>List</option>
