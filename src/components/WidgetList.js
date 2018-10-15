@@ -2,6 +2,7 @@ import React from 'react'
 import HeadingWidget from "./HeadingWidget";
 import ListWidget from "./ListWidget";
 import ImageWidget from "./ImageWidget"
+import LinkWidget from "./LinkWidget";
 
 class WidgetList extends React.Component {
     constructor(props) {
@@ -90,6 +91,9 @@ class WidgetList extends React.Component {
                                 {widget.type === "IMAGE" && <ImageWidget widget={widget}
                                                                          updateWidget={this.props.updateWidget}
                                                                          preview={this.props.previewOn}/>}
+                                {widget.type === "LINK" && <LinkWidget widget={widget}
+                                                                       updateWidget={this.props.updateWidget}
+                                                                       preview={this.props.previewOn}/>}
                             </li>
                         )
                     }
