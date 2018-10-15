@@ -234,4 +234,36 @@ export default class CourseService {
             }
         }
     };
+
+    static moveWidgetUp = (topicId, index) => {
+        for (let c in courses) {
+            for (let m in courses[c].modules) {
+                for (let l in courses[c].modules[m].lessons) {
+                    for (let t in courses[c].modules[m].lessons[l].topics) {
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topicId) {
+                            let temp = courses[c].modules[m].lessons[l].topics[t].widgets[index];
+                            courses[c].modules[m].lessons[l].topics[t].widgets[index] = courses[c].modules[m].lessons[l].topics[t].widgets[index - 1];
+                            courses[c].modules[m].lessons[l].topics[t].widgets[index - 1] = temp;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    static moveWidgetDown = (topicId, index) => {
+        for (let c in courses) {
+            for (let m in courses[c].modules) {
+                for (let l in courses[c].modules[m].lessons) {
+                    for (let t in courses[c].modules[m].lessons[l].topics) {
+                        if (courses[c].modules[m].lessons[l].topics[t].id === topicId) {
+                            let temp = courses[c].modules[m].lessons[l].topics[t].widgets[index];
+                            courses[c].modules[m].lessons[l].topics[t].widgets[index] = courses[c].modules[m].lessons[l].topics[t].widgets[index + 1];
+                            courses[c].modules[m].lessons[l].topics[t].widgets[index + 1] = temp;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

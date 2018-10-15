@@ -29,6 +29,16 @@ const actionToPropertyMapper = dispatch => ({
     findWidget: (widgetId) => dispatch({
         type: 'UPDATE_WIDGET',
         widgetId: widgetId
+    }),
+
+    moveUp: (index) => dispatch({
+        type: 'MOVE_UP',
+        widgetIndex: index
+    }),
+
+    moveDown: (index) => dispatch({
+        type: 'MOVE_DOWN',
+        widgetIndex: index
     })
 });
 

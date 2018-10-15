@@ -48,6 +48,18 @@ const WidgetReducer = (state = {widgets: []}, action) => {
                 allWidgets: allWidgets
             };
 
+        case 'MOVE_UP':
+            CourseService.moveWidgetUp(state.currentTopic.id, action.widgetIndex);
+            return {
+                widgets: CourseService.findAllWidgetsForTopic(state.currentTopic.id).slice(0)
+            };
+
+        case 'MOVE_DOWN':
+            CourseService.moveWidgetDown(state.currentTopic.id, action.widgetIndex);
+            return {
+                widgets: CourseService.findAllWidgetsForTopic(state.currentTopic.id).slice(0)
+            };
+
         default:
             return state
     }
