@@ -10,9 +10,10 @@ const WidgetReducer = (state = {widgets: []}, action) => {
             };
 
         case 'CREATE_WIDGET':
-            CourseService.createWidget(state.currentTopic.id, action.widget.id);
+            CourseService.createWidget(state.currentTopic.id, action.widget);
+            console.log(CourseService.findAllWidgetsForTopic(state.currentTopic.id).slice(0))
             return {
-                widgets: CourseService.findAllWidgetsForTopic(action.topic.id).slice(0),
+                widgets: CourseService.findAllWidgetsForTopic(state.currentTopic.id).slice(0),
                 currentTopic: state.currentTopic
             };
 

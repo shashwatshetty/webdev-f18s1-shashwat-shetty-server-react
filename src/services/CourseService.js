@@ -190,13 +190,12 @@ export default class CourseService {
         }
     };
 
-    static createWidget = (topicId, widgetId) => {
+    static createWidget = (topicId, widget) => {
         for (let c in courses) {
             for (let m in courses[c].modules) {
                 for (let l in courses[c].modules[m].lessons) {
                     for (let t in courses[c].modules[m].lessons[l].topics) {
                         if (courses[c].modules[m].lessons[l].topics[t].id === topicId) {
-                            const widget = CourseService.findWidget(widgetId);
                             courses[c].modules[m].lessons[l].topics[t].widgets.push(widget)
                         }
                     }
