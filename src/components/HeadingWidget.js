@@ -6,6 +6,16 @@ const HeadingWidget = ({widget, updateWidget, preview}) => {
         updateWidget(widget);
     };
 
+    const changeHeadingText = event => {
+        widget.text = event.target.value;
+        updateWidget(widget);
+    };
+
+    const changeWidgetName = event => {
+        widget.title = event.target.value;
+        updateWidget(widget);
+    };
+
     return (
         <div className="container">
             <div hidden={preview} className="row form-group">
@@ -15,14 +25,15 @@ const HeadingWidget = ({widget, updateWidget, preview}) => {
                 </label>
                 <input type="text"
                        className="col-sm-12 col-md-6 col-lg-9 form-control"
-                       id={widget.id}
+                       onChange={changeHeadingText}
                        placeholder="Heading text"/>
             </div>
             <div hidden={preview} className="row form-group">
                 <label className="col-sm-12 col-md-6 col-lg-3">
                     Heading Size
                 </label>
-                <select id={"select"+widget.id} className="col-sm-12 col-md-6 col-lg-9 form-control" onChange={changeHeading}>
+                <select id={"select" + widget.id} className="col-sm-12 col-md-6 col-lg-9 form-control"
+                        onChange={changeHeading}>
                     <option value={1}>Heading 1</option>
                     <option value={2}>Heading 2</option>
                     <option value={3}>Heading 3</option>
@@ -33,6 +44,7 @@ const HeadingWidget = ({widget, updateWidget, preview}) => {
                     Widget Name
                 </label>
                 <input type="text"
+                       onChange={changeWidgetName}
                        className="col-sm-12 col-md-6 col-lg-9 form-control"
                        placeholder="Widget name"/>
             </div>
@@ -48,6 +60,6 @@ const HeadingWidget = ({widget, updateWidget, preview}) => {
             </div>
         </div>
     )
-}
+};
 
 export default HeadingWidget
