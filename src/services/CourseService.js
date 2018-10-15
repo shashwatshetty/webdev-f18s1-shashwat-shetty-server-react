@@ -165,7 +165,8 @@ export default class CourseService {
                 for (let l in courses[c].modules[m].lessons) {
                     for (let t in courses[c].modules[m].lessons[l].topics) {
                         if (courses[c].modules[m].lessons[l].topics[t].id === topicId) {
-                            return courses[c].modules[m].lessons[l].topics[t].widgets
+                            let widgets = courses[c].modules[m].lessons[l].topics[t].widgets;
+                            return widgets ? widgets : [];
                         }
                     }
                 }

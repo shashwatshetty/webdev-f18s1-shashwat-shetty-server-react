@@ -1,7 +1,7 @@
 import CourseService from "../services/CourseService";
 
 const WidgetReducer = (state = {widgets: []}, action) => {
-    console.log(state)
+    // console.log(state)
     switch (action.type) {
         case 'FIND_ALL_WIDGETS_FOR_TOPIC':
             return {
