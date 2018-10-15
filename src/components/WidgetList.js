@@ -1,6 +1,7 @@
 import React from 'react'
 import HeadingWidget from "./HeadingWidget";
 import ListWidget from "./ListWidget";
+import ImageWidget from "./ImageWidget"
 
 class WidgetList extends React.Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class WidgetList extends React.Component {
     };
 
     render() {
-        let widgetType
+        let widgetType;
         return (
             <div>
                 <div>
@@ -86,6 +87,9 @@ class WidgetList extends React.Component {
                                 {widget.type === "LIST" && <ListWidget widget={widget}
                                                                        updateWidget={this.props.updateWidget}
                                                                        preview={this.props.previewOn}/>}
+                                {widget.type === "IMAGE" && <ImageWidget widget={widget}
+                                                                         updateWidget={this.props.updateWidget}
+                                                                         preview={this.props.previewOn}/>}
                             </li>
                         )
                     }
