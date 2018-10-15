@@ -20,10 +20,11 @@ const HeadingWidget = ({widget, updateWidget, preview}) => {
         <div className="container">
             <div hidden={preview} className="row form-group">
                 <label className="col-sm-12 col-md-6 col-lg-3"
-                       htmlFor={widget.id}>
+                       htmlFor={"heading" + widget.id}>
                     Heading Text
                 </label>
                 <input type="text"
+                       id={"heading" + widget.id}
                        className="col-sm-12 col-md-6 col-lg-9 form-control"
                        onChange={changeHeadingText}
                        placeholder="Heading text"/>
@@ -32,7 +33,7 @@ const HeadingWidget = ({widget, updateWidget, preview}) => {
                 <label className="col-sm-12 col-md-6 col-lg-3">
                     Heading Size
                 </label>
-                <select id={"select" + widget.id} className="col-sm-12 col-md-6 col-lg-9 form-control"
+                <select className="col-sm-12 col-md-6 col-lg-9 form-control"
                         onChange={changeHeading}>
                     <option value={1}>Heading 1</option>
                     <option value={2}>Heading 2</option>
