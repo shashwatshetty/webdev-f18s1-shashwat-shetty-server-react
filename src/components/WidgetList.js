@@ -22,7 +22,12 @@ class WidgetList extends React.Component {
         this.props.createWidget(newWidget);
     };
 
+    widgetTypeChange = (event) => {
+        console.log(event.target)
+    };
+
     render() {
+        let widgetType
         return (
             <div>
                 <div>
@@ -32,6 +37,7 @@ class WidgetList extends React.Component {
                     </button>
 
                     <button type="button"
+                            onClick={() => this.props.previewToggle()}
                             className="btn btn-secondary">
                         Preview
                     </button>
@@ -42,13 +48,40 @@ class WidgetList extends React.Component {
                         this.props.currentWidgets.map((widget, index) =>
                             <li key={index}
                                 className="list-group-item">
-                                <button
-                                    onClick={() => this.props.deleteWidget(widget)}
-                                    className="btn btn-danger float-right">
-                                    Delete
-                                </button>
-                                {widget.type === "HEADING" && <HeadingWidget updateWidget={this.props.updateWidget}
-                                                                             widget={widget}/>}
+                                <span className="col-sm-12 col-md-6 col-lg-3 float-left">
+                                    {widget.title}
+                                </span>
+                                <div className="form-row justify-content-end"
+                                     hidden={this.props.previewOn}>
+                                    <button className="btn btn-warning"
+                                            onClick={() => this.props.moveUp(index)}
+                                            hidden={index === 0}>
+                                        <i className="fa fa-arrow-up"/>
+                                    </button>
+                                    <button className="btn btn-warning"
+                                            onClick={() => this.props.moveDown(index)}
+                                            hidden={index === this.props.currentWidgets.length - 1}>
+                                        <i className="fa fa-arrow-down"/>
+                                    </button>
+                                    <select id={widget.id} className="form-control widget-type"
+                                            onChange={this.widgetTypeChange}
+                                            ref={node => widgetType = node}>
+                                        <option>Heading</option>
+                                        <option>Paragraph</option>
+                                        <option>List</option>
+                                        <option>Image</option>
+                                        <option>Link</option>
+                                    </select>
+                                    <button
+                                        onClick={() => this.props.deleteWidget(widget)}
+                                        className="btn btn-danger">
+                                        <i className="fa fa-window-close"/>
+                                    </button>
+                                </div>
+                                <br/>
+                                {widget.type === "HEADING" && <HeadingWidget widget={widget}
+                                                                             updateWidget={this.props.updateWidget}
+                                                                             preview={this.props.previewOn}/>}
                             </li>
                         )
                     }
