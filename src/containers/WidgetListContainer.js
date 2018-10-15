@@ -3,7 +3,8 @@ import WidgetList from "../components/WidgetList";
 import {connect} from 'react-redux';
 
 const stateToPropertyMapper = state => ({
-    currentWidgets: state.widgets
+    currentWidgets: state.widgets,
+    previewOn: state.previewFlag
 });
 const actionToPropertyMapper = dispatch => ({
     findAllWidgetsForTopic: (topic) => dispatch({
@@ -27,7 +28,7 @@ const actionToPropertyMapper = dispatch => ({
     }),
 
     findWidget: (widgetId) => dispatch({
-        type: 'UPDATE_WIDGET',
+        type: 'FIND_WIDGET',
         widgetId: widgetId
     }),
 
@@ -39,6 +40,10 @@ const actionToPropertyMapper = dispatch => ({
     moveDown: (index) => dispatch({
         type: 'MOVE_DOWN',
         widgetIndex: index
+    }),
+
+    previewToggle: () => dispatch({
+        type: 'TOGGLE_PREVIEW'
     })
 });
 
