@@ -3,6 +3,7 @@ import HeadingWidget from "./HeadingWidget";
 import ListWidget from "./ListWidget";
 import ImageWidget from "./ImageWidget"
 import LinkWidget from "./LinkWidget";
+import ParagraphWidget from "./ParagraphWidget";
 
 class WidgetList extends React.Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class WidgetList extends React.Component {
     }
 
     componentDidUpdate() {
+        console.log(this.props)
         this.props.findAllWidgetsForTopic(this.props.topic)
     }
 
@@ -26,7 +28,8 @@ class WidgetList extends React.Component {
     };
 
     widgetTypeChange = (event) => {
-        console.log(event.target)
+        let id = event.target.id;
+        let newType = parseInt(event.target.value);
     };
 
     render() {
@@ -69,11 +72,11 @@ class WidgetList extends React.Component {
                                     <select id={widget.id} className="form-control widget-type"
                                             onChange={this.widgetTypeChange}
                                             ref={node => widgetType = node}>
-                                        <option>Heading</option>
-                                        <option>Paragraph</option>
-                                        <option>List</option>
-                                        <option>Image</option>
-                                        <option>Link</option>
+                                        <option value={0}>Heading</option>
+                                        <option value={1}>Paragraph</option>
+                                        <option value={2}>List</option>
+                                        <option value={3}>Image</option>
+                                        <option value={4}>Link</option>
                                     </select>
                                     <button
                                         onClick={() => this.props.deleteWidget(widget)}
@@ -94,6 +97,9 @@ class WidgetList extends React.Component {
                                 {widget.type === "LINK" && <LinkWidget widget={widget}
                                                                        updateWidget={this.props.updateWidget}
                                                                        preview={this.props.previewOn}/>}
+                                {widget.type === "PARAGRAPH" && <ParagraphWidget widget={widget}
+                                                                                 updateWidget={this.props.updateWidget}
+                                                                                 preview={this.props.previewOn}/>}
                             </li>
                         )
                     }
