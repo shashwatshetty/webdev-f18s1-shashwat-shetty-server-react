@@ -30,6 +30,48 @@ class WidgetList extends React.Component {
     widgetTypeChange = (event) => {
         let id = event.target.id;
         let newType = parseInt(event.target.value);
+        let newWidget;
+        switch(newType) {
+            case 0:
+                newWidget = {
+                    id: id,
+                    type: 'HEADING',
+                    size: 1,
+                    text: 'Default text'
+                };
+                break;
+            case 1:
+                newWidget = {
+                    id: id,
+                    type: 'PARAGRAPH',
+                    text: ''
+                };
+                break;
+            case 2:
+                newWidget = {
+                    id: id,
+                    type: 'LIST',
+                    options: ''
+                };
+                break;
+            case 3:
+                newWidget = {
+                    id: id,
+                    type: 'IMAGE',
+                    imgUrl: ''
+                };
+                break;
+            case 4:
+                newWidget = {
+                    id: id,
+                    type: 'LINK',
+                    linkUrl: ''
+                };
+                break;
+            default:
+                newWidget = this.props.findWidget(id);
+        }
+        this.props.updateWidget(newWidget);
     };
 
     render() {
