@@ -14,6 +14,12 @@ let courses = [
                                 title: 'topic 1',
                                 widgets: [
                                     {
+                                        id: '089',
+                                        title: 'para 1',
+                                        type: 'PARAGRAPH',
+                                        text: 'Hi, I am Shashwat Shetty. I am a second year Graduate student. I study in NEU. I live in Boston. I am from India.',
+                                    },
+                                    {
                                         id: '456',
                                         title: 'list 1',
                                         type: 'LIST',
@@ -159,7 +165,7 @@ export default class CourseService {
         return m.lessons
     };
 
-    static findAllWidgetsForTopic = topicId => {
+    static findWidgets = topicId => {
         for (let c in courses) {
             for (let m in courses[c].modules) {
                 for (let l in courses[c].modules[m].lessons) {

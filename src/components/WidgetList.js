@@ -13,8 +13,8 @@ class WidgetList extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log(this.props)
-        this.props.findAllWidgetsForTopic(this.props.topic)
+        console.log(this.props);
+        this.props.findAllWidgetsForTopic(this.props.topic);
     }
 
     addWidget = () => {
@@ -33,7 +33,7 @@ class WidgetList extends React.Component {
         let newType = parseInt(event.target.value);
         let newWidget = CourseService.findWidget(id);
         console.log(this.props);
-        switch(newType) {
+        switch (newType) {
             case 0:
                 newWidget = {
                     id: id,
@@ -81,7 +81,6 @@ class WidgetList extends React.Component {
     };
 
     render() {
-        let widgetType;
         return (
             <div>
                 <div>
