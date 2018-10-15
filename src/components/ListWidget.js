@@ -47,7 +47,7 @@ const ListWidget = ({widget, updateWidget, preview}) => {
         <div className="container">
             <div hidden={preview} className="row form-group">
                 <label className="col-sm-12 col-md-6 col-lg-3"
-                       htmlFor={widget.id}>
+                       htmlFor={"list" + widget.id}>
                     List Items
                 </label>
                 <textarea id={"list" + widget.id}

@@ -38,7 +38,7 @@ const ImageWidget = ({widget, updateWidget, preview}) => {
                     <label>Preview:</label>
                 </div>
                 <div className="row form-group">
-                    <img src={widget.imgUrl} alt="../default.png"/>
+                    <img src={widget.imgUrl}/>
                 </div>
             </div>
         </div>
