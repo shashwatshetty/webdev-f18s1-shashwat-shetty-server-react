@@ -11,17 +11,28 @@ export default class CourseList extends Component {
 
     constructor(props) {
         super(props);
-        this.course = null
+        this.course = null;
         this.state = {
-            courses: CourseService.findAllCourses()
-        }
+            courses: {}
+        };
+        CourseService.findAllCourses()
+            .then(courses => {
+                this.setState({
+                    courses: courses
+                })
+            })
+            .then(this.render())
     }
+
     addCourse = newCourse => {
         CourseService.createCourse(newCourse)
-        this.setState({
-            courses: CourseService.findAllCourses()
-        })
-    }
+            .then(courses => {
+                this.setState({
+                    courses: courses
+                })
+            })
+            .then(this.render())
+    };
 
     deleteCourse = courseToDelete => {
         CourseService.deleteCourse(courseToDelete.id)
