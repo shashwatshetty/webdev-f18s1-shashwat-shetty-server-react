@@ -1,9 +1,64 @@
 import React, {Component} from 'react'
+import UserService from "../services/UserService";
 
 export default class Register extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            username: '',
+            firstname: '',
+            lastname: '',
+            password: '',
+            currentUser: {}
+        }
     }
+
+    inputFieldChange = (event) => {
+        switch (event.target.id.toString()) {
+            case "firstname":
+                this.setState({
+                    firstname: event.target.value
+                });
+                break;
+            case "lastname":
+                this.setState({
+                    lastname: event.target.value
+                });
+                break;
+            case "username":
+                this.setState({
+                    username: event.target.value
+                })
+                break;
+            case "password":
+                this.setState({
+                    password: event.target.value
+                })
+                break;
+        }
+    };
+
+    registerUser = () => {
+        let user = {
+            "username": this.state.username,
+            "firstname": this.state.firstname,
+            "lastname": this.state.lastname,
+            "password": this.state.password,
+        };
+        UserService.register(user)
+            .then(creds => this.setState({
+                currentUser: creds
+            }))
+            .then(this.routeToProfile)
+    };
+
+    routeToLogin = () => {
+        window.location.href = 'http://localhost:3000/login'
+    };
+
+    routeToProfile = () => {
+        window.location.href = 'http://localhost:3000/profile'
+    };
 
     render() {
         return (
@@ -21,15 +76,16 @@ export default class Register extends Component {
                     <div className="col-10">
                         <input type="text"
                                className="form-control"
-                               id="fname"
-                               placeholder="John"
+                               onChange={this.inputFieldChange}
+                               id="firstname"
+                               placeholder="Your First Name"
                                required/>
                     </div>
                 </div>
 
                 <div className="row form-group">
                     <div className="col">
-                        <label htmlFor="lname"
+                        <label htmlFor="lastname"
                                className="control-label">
                             Last Name
                         </label>
@@ -37,8 +93,9 @@ export default class Register extends Component {
                     <div className="col-10">
                         <input type="text"
                                className="form-control"
-                               id="lname"
-                               placeholder="Doe"
+                               id="lastname"
+                               onChange={this.inputFieldChange}
+                               placeholder="Your Last Name"
                                required/>
                     </div>
                 </div>
@@ -54,7 +111,8 @@ export default class Register extends Component {
                         <input type="text"
                                className="form-control"
                                id="username"
-                               placeholder="jdoe123"
+                               onChange={this.inputFieldChange}
+                               placeholder="Your User Name"
                                required/>
                     </div>
                 </div>
@@ -70,37 +128,23 @@ export default class Register extends Component {
                         <input type="password"
                                className="form-control"
                                id="password"
-                               placeholder="password@123"
+                               onChange={this.inputFieldChange}
+                               placeholder="Your Password"
                                required/>
                     </div>
                 </div>
 
-                <div className="row form-group">
+                <div className="row justify-content-between">
                     <div className="col">
-                        <label htmlFor="vpassword"
-                               className="control-label">
-                            Verify Password
-                        </label>
-                    </div>
-                    <div className="col-10">
-                        <input type="password"
-                               className="form-control"
-                               id="vpassword"
-                               placeholder="password@123"
-                               required/>
-                    </div>
-                </div>
-                <div className="row form-group">
-                    <div className="col">
-                        <button className="btn btn-primary">
+                        <button className="btn btn-primary"
+                                onClick={() => this.registerUser()}>
                             Sign Up
                         </button>
                     </div>
-                    <div className="col">
-                        <button className="btn btn-link">
-                            <u>
-                                Log In.
-                            </u>
+                    <div>
+                        <button className="btn btn-outline-secondary"
+                                onClick={() => this.routeToLogin()}>
+                            Log In
                         </button>
                     </div>
                 </div>
