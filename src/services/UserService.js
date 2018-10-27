@@ -34,10 +34,9 @@ export default class UserService {
         });
     };
 
-    static logout = (user) => {
+    static logout = () => {
         return fetch(LOGOUT_API_URL, {
             method: 'POST',
-            body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json'
             },
