@@ -5,7 +5,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            user: '',
             password: '',
             currentUser: {}
         }
@@ -13,7 +13,7 @@ export default class Login extends Component {
 
     updateUsername = event =>
         this.setState({
-            username: event.target.value
+            user: event.target.value
         });
 
     updatePassword = event =>
@@ -23,7 +23,7 @@ export default class Login extends Component {
 
     checkUserCredentials = () => {
         let user = {
-            "username": this.state.username,
+            "username": this.state.user,
             "password": this.state.password
         };
         UserService.login(user)
@@ -34,10 +34,14 @@ export default class Login extends Component {
     };
 
     routeToProfile = () => {
-        console.log(window.location.href)
+        console.log(this.state.currentUser.id)
         if (this.state.currentUser.id) {
             window.location.href = 'http://localhost:3000/profile'
         }
+    };
+
+    routeToRegister = () => {
+        window.location.href = 'http://localhost:3000/register'
     };
 
     render() {
@@ -86,7 +90,6 @@ export default class Login extends Component {
                                    required/>
                         </div>
                     </div>
-                    {console.log(this.state.currentUser)}
                     <div className="row form-group justify-content-between">
                         <div className="col">
                             <button className="btn btn-primary form-group"
@@ -96,7 +99,7 @@ export default class Login extends Component {
                         </div>
 
                         <div>
-                            <button className="btn btn-link form-group">
+                            <button className="btn btn-link form-group" onClick={() => this.routeToRegister()}>
                                 <u>
                                     Sign up.
                                 </u>
