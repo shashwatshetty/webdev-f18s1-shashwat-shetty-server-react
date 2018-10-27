@@ -113,36 +113,87 @@ let courses = [
         modules: []
     }
 ]
+const FIND_ALL_COURSES_API_URL = "http://localhost:8080/api/course"
+const CREATE_COURSE_API_URL = "http://localhost:8080/api/course"
+const FIND_COURSE_BY_ID_API_URL = "http://localhost:8080/api/course/${courseId}"
+const UPDATE_COURSE_API_URL = "http://localhost:8080/api/course/${courseId}"
+const DELETE_COURSE_API_URL = "http://localhost:8080/api/course/${courseId}"
 
 export default class CourseService {
-    static findAllCourses = () =>
-        courses;
-
-    static findCourseById = id => {
-        let c = {};
-        courses.map(course => {
-            if (course.id === id) {
-                c = course;
-            }
-        });
-        return c
-    };
-
-    static updateCourse = (id, course) => {
-        courses = courses.map(c => {
-            if (c.id === id) {
-                c = course;
-            }
+    static findAllCourses = () => {
+        return fetch(FIND_ALL_COURSES_API_URL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        }).then(function(response) {
+            return response.text()
+                .then(function(text) {
+                    return text ? JSON.parse(text) : {}
+                })
         });
     };
 
-    static createCourse = course =>
-        courses.push(course);
+    static createCourse = (course) => {
+        return fetch(CREATE_COURSE_API_URL, {
+            body: JSON.stringify(course),
+            headers: {
+                'Content-Type': 'application/json' },
+            method: 'POST',
+            credentials: 'include'
+        }).then(function(response) {
+            return response.text()
+                .then(function(text) {
+                    return text ? JSON.parse(text) : {}
+                })
+        });
+    };
 
-    static deleteCourse = courseId =>
-        courses = courses.filter(
-            course => course.id !== courseId
-        );
+    static findCourseById = (courseId) => {
+        console.log(FIND_COURSE_BY_ID_API_URL)
+        return fetch(FIND_COURSE_BY_ID_API_URL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        }).then(function(response) {
+            return response.text()
+                .then(function(text) {
+                    return text ? JSON.parse(text) : {}
+                })
+        });
+    };
+
+    static updateCourse = (courseId, course) => {
+        return fetch(UPDATE_COURSE_API_URL, {
+            body: JSON.stringify(course),
+            headers: {
+                'Content-Type': 'application/json' },
+            method: 'PUT',
+            credentials: 'include'
+        }).then(function(response) {
+            return response.text()
+                .then(function(text) {
+                    return text ? JSON.parse(text) : {}
+                })
+        });
+    };
+
+    static deleteCourse = courseId => {
+        return fetch(DELETE_COURSE_API_URL, {
+            headers: {
+                'Content-Type': 'application/json' },
+            method: 'DELETE',
+            credentials: 'include'
+        }).then(function(response) {
+            return response.text()
+                .then(function(text) {
+                    return text ? JSON.parse(text) : {}
+                })
+        });
+    };
 
     static findAllModules = selectedCourse => {
         let c = {};
