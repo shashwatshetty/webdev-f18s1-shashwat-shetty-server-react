@@ -1,31 +1,26 @@
 import React from 'react'
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-const CourseRow = ({course, index, deleteCourse, updateCourse}) =>
+const CourseRow = ({course, index, updateCourse, deleteCourse, selectCourse}) =>
     <tr id={index}>
-        <th scope="row">{course.title}</th>
+        <th scope="row">
+            <button className="btn btn-link" onClick={() => selectCourse(course)}>
+                {course.title}
+            </button>
+        </th>
         <td>me</td>
         <td>{(new Date()).toLocaleTimeString()}</td>
         <td>
-            <div className="row">
-                <div className="col">
-                    <button className="btn btn-danger"
-                            onClick={() => deleteCourse(course)}>
-                        <span aria-hidden={"true"}>
-                                    &times;
-                        </span>
-                    </button>
-                </div>
-                {console.log(course.id)}
-                <div className="col">
-                    <Link className="btn btn-primary"
-                          onClick={() => updateCourse(course)}
-                          to={`/${course.id}/edit`}>
-                        Edit
-                    </Link>
-                </div>
-            </div>
+            <button className="btn btn-danger"
+                    onClick={() => deleteCourse(course)}>
+                <i className="fa fa-trash"/>
+            </button>
+            &nbsp;&nbsp;
+            <Link className="btn btn-primary"
+                  to={`/${course.cId}/edit`}>
+                <i className="fa fa-edit"/>
+            </Link>
         </td>
-    </tr>
+    </tr>;
 
 export default CourseRow
