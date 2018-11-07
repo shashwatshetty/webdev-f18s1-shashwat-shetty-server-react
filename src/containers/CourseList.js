@@ -13,7 +13,9 @@ export default class CourseList extends Component {
         super(props);
         this.course = null;
         this.state = {
-            courses: {}
+            courses: [],
+            selectedCourse: {},
+            courseTitle: ''
         };
         CourseService.findAllCourses()
             .then(courses => {
@@ -21,7 +23,7 @@ export default class CourseList extends Component {
                     courses: courses
                 })
             })
-            .then(this.render())
+            .then(this.render());
     }
 
     addCourse = newCourse => {
@@ -35,16 +37,24 @@ export default class CourseList extends Component {
     };
 
     deleteCourse = courseToDelete => {
-        CourseService.deleteCourse(courseToDelete.id)
-        this.setState({
-            courses: CourseService.findAllCourses()
-        })
-    }
+        CourseService.deleteCourse(courseToDelete.cId)
+            .then(courses => {
+                this.setState({
+                    courses: courses
+                })
+            })
+            .then(this.render())
+    };
 
-    updateCourse = course => {
-        console.log(course.id)
-        this.course = course
-    }
+    updateCourse = (courseToUpdate) => {
+        CourseService.updateCourse(this.state.selectedCourse.cId, courseToUpdate)
+            .then(courses => {
+                this.setState({
+                    courses: courses
+                })
+            })
+            .then(this.render())
+    };
 
     render() {
         return (
@@ -59,8 +69,7 @@ export default class CourseList extends Component {
                         render={(props) =>
                             <CourseEditor
                                 {...props}
-                                course={this.course}
-                                courses={this.state.courses}/>}/>
+                                course={this.course}/>}/>
 
                     <div>
                         <div>
@@ -68,18 +77,24 @@ export default class CourseList extends Component {
                                    render={() =>
                                        <CourseTable
                                            courses={this.state.courses}
-                                           deleteCourse={this.deleteCourse}
+                                           title={this.state.courseTitle}
+                                           selectedCourse={this.state.selectedCourse}
                                            addCourse={this.addCourse}
-                                           updateCourse={this.updateCourse}/>}/>
+                                           selectCourse={this.selectCourse}
+                                           updateCourse={this.updateCourse}
+                                           deleteCourse={this.deleteCourse}/>}/>
                         </div>
                         <div>
                             <Route path="/courses/grid/"
                                    render={() =>
                                        <CourseGrid
                                            courses={this.state.courses}
-                                           deleteCourse={this.deleteCourse}
+                                           title={this.state.courseTitle}
+                                           selectedCourse={this.state.selectedCourse}
                                            addCourse={this.addCourse}
-                                           updateCourse={this.updateCourse}/>}/>
+                                           selectCourse={this.selectCourse}
+                                           updateCourse={this.updateCourse}
+                                           deleteCourse={this.deleteCourse}/>}/>
                         </div>
                     </div>
                 </div>
