@@ -1,127 +1,76 @@
+import UserService from "./UserService";
+
 let courses = [
     {
-        id: '123',
-        title: 'CS5200',
-        modules: [
+        "cId": 6,
+        "title": "cs5200",
+        "modules": [
             {
-                title: 'Week 1',
-                lessons: [
+                "mId": 4,
+                "title": "Module 1",
+                "lessons": [
                     {
-                        title: 'Lesson 1',
-                        topics: [
+                        "lId": 2,
+                        "title": "lesson 1",
+                        "topics": [
                             {
-                                id: '123',
-                                title: 'topic 1',
-                                widgets: [
+                                "tId": 0,
+                                "title": "topic 1",
+                                "widgets": [
                                     {
-                                        id: '089',
-                                        title: 'para 1',
-                                        type: 'PARAGRAPH',
-                                        text: 'Hi, I am Shashwat Shetty. I am a second year Graduate student. I study in NEU. I live in Boston. I am from India.',
+                                        "wid": 0,
+                                        "title": "widget 1"
                                     },
                                     {
-                                        id: '456',
-                                        title: 'list 1',
-                                        type: 'LIST',
-                                        options: 'option 1\noption 2\noption 3'
-                                    },
-                                    {
-                                        id: '123',
-                                        title: 'widget 1',
-                                        type: 'HEADING',
-                                        size: 1,
-                                        text: 'Heading 1'
-                                    },
-                                    {
-                                        id: '234',
-                                        title: 'widget 2',
-                                        type: 'HEADING',
-                                        size: 2,
-                                        text: 'Heading 2'
-                                    },
-                                    {
-                                        id: '345',
-                                        title: 'widget 3',
-                                        type: 'HEADING',
-                                        size: 3,
-                                        text: 'Heading 3'
+                                        "wid": 0,
+                                        "title": "widget 2"
                                     }
                                 ]
                             },
                             {
-                                id: '234',
-                                title: 'topic 2',
-                                widgets: [
-                                    {
-                                        title: 'widget a'
-                                    },
-                                    {
-                                        title: 'widget b'
-                                    },
-                                    {
-                                        title: 'widget c'
-                                    }
-                                ]
+                                "tId": 1,
+                                "title": "topic 2",
+                                "widgets": null
                             }
                         ]
                     },
                     {
-                        title: 'Lesson 2',
-                        topics: [
-                            {
-                                title: 'topic a'
-                            },
-                            {
-                                title: 'topic b'
-                            },
-                            {
-                                title: 'topic c'
-                            }
-                        ]
-                    },
-                    {
-                        title: 'Lesson 3'
+                        "lId": 3,
+                        "title": "lesson 2",
+                        "topics": null
                     }
                 ]
             },
             {
-                title: 'Week 2',
-                lessons: [
-                    {
-                        title: 'Lesson A',
-                        topics: []
-                    },
-                    {
-                        title: 'Lesson B',
-                        topics: []
-                    },
-                    {
-                        title: 'Lesson C',
-                        topics: []
-                    }
-                ]
+                "mId": 5,
+                "title": "Module 2",
+                "lessons": null
             },
             {
-                title: 'Week 3',
-                lessons: []
+                "mId": 16,
+                "title": "Mod-1",
+                "lessons": []
             }
         ]
     },
     {
-        id: '234',
-        title: 'CS5610',
-        modules: []
+        "cId": 7,
+        "title": "cs5610",
+        "modules": null
+    },
+    {
+        "cId": 8,
+        "title": "cs5500",
+        "modules": null
     }
 ]
-const FIND_ALL_COURSES_API_URL = "http://localhost:8080/api/course"
-const CREATE_COURSE_API_URL = "http://localhost:8080/api/course"
-const FIND_COURSE_BY_ID_API_URL = "http://localhost:8080/api/course/${courseId}"
-const UPDATE_COURSE_API_URL = "http://localhost:8080/api/course/${courseId}"
-const DELETE_COURSE_API_URL = "http://localhost:8080/api/course/${courseId}"
+// const COURSES_API_URL = "https://wbdvf18-shash-shetty-srvr-java.herokuapp.com/api/course/"
+
+const COURSES_API_URL = "http://localhost:8080/api/course/"
 
 export default class CourseService {
     static findAllCourses = () => {
-        return fetch(FIND_ALL_COURSES_API_URL, {
+        return fetch(COURSES_API_URL, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -130,13 +79,13 @@ export default class CourseService {
         }).then(function(response) {
             return response.text()
                 .then(function(text) {
-                    return text ? JSON.parse(text) : {}
+                    return text ? JSON.parse(text) : []
                 })
         });
     };
 
     static createCourse = (course) => {
-        return fetch(CREATE_COURSE_API_URL, {
+        return fetch(COURSES_API_URL, {
             body: JSON.stringify(course),
             headers: {
                 'Content-Type': 'application/json' },
@@ -145,13 +94,14 @@ export default class CourseService {
         }).then(function(response) {
             return response.text()
                 .then(function(text) {
-                    return text ? JSON.parse(text) : {}
+                    return text ? JSON.parse(text) : []
                 })
         });
     };
 
     static findCourseById = (courseId) => {
-        console.log(FIND_COURSE_BY_ID_API_URL)
+        const FIND_COURSE_BY_ID_API_URL = COURSES_API_URL + courseId;
+        console.log()
         return fetch(FIND_COURSE_BY_ID_API_URL, {
             method: 'GET',
             headers: {
@@ -167,6 +117,7 @@ export default class CourseService {
     };
 
     static updateCourse = (courseId, course) => {
+        const UPDATE_COURSE_API_URL = COURSES_API_URL + courseId;
         return fetch(UPDATE_COURSE_API_URL, {
             body: JSON.stringify(course),
             headers: {
@@ -176,12 +127,14 @@ export default class CourseService {
         }).then(function(response) {
             return response.text()
                 .then(function(text) {
-                    return text ? JSON.parse(text) : {}
+                    return text ? JSON.parse(text) : []
                 })
         });
     };
 
     static deleteCourse = courseId => {
+        const DELETE_COURSE_API_URL = COURSES_API_URL + courseId;
+        console.log(DELETE_COURSE_API_URL)
         return fetch(DELETE_COURSE_API_URL, {
             headers: {
                 'Content-Type': 'application/json' },
@@ -190,7 +143,7 @@ export default class CourseService {
         }).then(function(response) {
             return response.text()
                 .then(function(text) {
-                    return text ? JSON.parse(text) : {}
+                    return text ? JSON.parse(text) : []
                 })
         });
     };
@@ -308,6 +261,7 @@ export default class CourseService {
     }
 
     static moveWidgetDown = (topicId, index) => {
+        console.log(topicId + "    " + index)
         for (let c in courses) {
             for (let m in courses[c].modules) {
                 for (let l in courses[c].modules[m].lessons) {

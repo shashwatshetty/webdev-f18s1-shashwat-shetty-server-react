@@ -1,11 +1,12 @@
 const CREATE_MODULE_API_URL = "http://localhost:8080/api/course/{courseId}/module"
-const FIND_ALL_MODULES_API_URL = "http://localhost:8080/api/course/{courseId}/module"
+// const FIND_ALL_MODULES_API_URL = "http://localhost:8080/api/course/{courseId}/module"
 const FIND_MODULE_BY_ID_API_URL = "http://localhost:8080/api/course/{courseId}/module/{moduleId}"
 const UPDATE_MODULE_API_URL = "http://localhost:8080/api/course/{courseId}/module/{moduleId}"
 const DELETE_MODULE_API_URL = "http://localhost:8080/api/course/{courseId}/module/{moduleId}"
 
 export default class ModuleService {
-    static findAllModules = () => {
+    static findAllModules = (courseId) => {
+        const FIND_ALL_MODULES_API_URL = "http://localhost:8080/api/course/" + courseId + "/module";
         return fetch(FIND_ALL_MODULES_API_URL, {
             method: 'GET',
             headers: {
