@@ -43,6 +43,7 @@ const WidgetReducer = (state = {widgets: [], previewFlag: false}, action) => {
             };
 
         case 'MOVE_UP':
+            console.log(action.topic);
             CourseService.moveWidgetUp(state.currentTopic.id, action.widgetIndex);
             return {
                 widgets: CourseService.findWidgets(state.currentTopic.id).slice(0),

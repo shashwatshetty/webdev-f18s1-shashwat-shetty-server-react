@@ -9,12 +9,12 @@ import CourseService from "../services/CourseService";
 class WidgetList extends React.Component {
     constructor(props) {
         super(props);
+        // console.log(props);
         props.findAllWidgetsForTopic(props.topic);
     }
 
-    componentDidUpdate() {
-        console.log(this.props);
-        this.props.findAllWidgetsForTopic(this.props.topic);
+    componentWillReceiveProps(newProps) {
+        console.log(newProps.topic)
     }
 
     addWidget = () => {
@@ -84,6 +84,7 @@ class WidgetList extends React.Component {
         return (
             <div>
                 <div>
+                    {console.log(this.props)}
                     <button id="save"
                             className="btn btn-success float-right">
                         <i className="fa fa-save"/>

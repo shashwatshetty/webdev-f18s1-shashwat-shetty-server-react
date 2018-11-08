@@ -47,7 +47,7 @@ const actionToPropertyMapper = dispatch => ({
     })
 });
 
-const WidgetListContainer = connect
+const  WidgetListContainer = connect
 (stateToPropertyMapper, actionToPropertyMapper)(WidgetList)
 
 export default WidgetListContainer
