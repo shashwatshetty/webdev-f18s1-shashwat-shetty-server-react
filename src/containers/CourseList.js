@@ -56,6 +56,12 @@ export default class CourseList extends Component {
             .then(this.render())
     };
 
+    selectCourse = course => {
+        this.setState({
+            selectedCourse: course
+        })
+    };
+
     render() {
         return (
             <Router>
@@ -73,7 +79,7 @@ export default class CourseList extends Component {
 
                     <div>
                         <div>
-                            <Route path="/courses/table/"
+                            <Route exact path="/courses/table/"
                                    render={() =>
                                        <CourseTable
                                            courses={this.state.courses}

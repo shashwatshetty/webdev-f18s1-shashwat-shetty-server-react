@@ -7,21 +7,43 @@ import WidgetReducer from "../reducers/WidgetReducer"
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import WidgetListContainer from "../containers/WidgetListContainer"
+import CourseService from "../services/CourseService";
+import ModuleService from "../services/ModuleService";
 
 const store = createStore(WidgetReducer)
 
 export default class CourseEditor extends Component {
     constructor(props) {
         super(props);
-        const course = this.props.course;
+        const cId = props.match.params.courseId;
+        this.state = {
+            course: {},
+            currentModule: {},
+            currentLesson: {},
+            currentTopic: {},
+            title: '',
+            modules: [],
+            lessons: [],
+            topics: []
+        };
+        CourseService.findCourseById(cId)
+            .then(course => {
+                this.setState({
+                    course: course
+                })
+            })
+            .then(this.initialiseState);
+    }
+
+    initialiseState = () => {
         let selectedModule = {};
         let selectedLesson = {};
         let selectedTopic = {};
         let lessons = [];
         let topics = [];
 
-        if (course.modules) {
-            selectedModule = course.modules[0]
+        if (this.state.course.modules) {
+            selectedModule = this.state.course.modules[0]
         }
         if (selectedModule && selectedModule.lessons) {
             lessons = selectedModule.lessons;
@@ -31,18 +53,16 @@ export default class CourseEditor extends Component {
             topics = selectedLesson.topics;
             selectedTopic = selectedLesson.topics[0]
         }
-
-        this.state = {
-            course: course,
+        this.setState({
             currentModule: selectedModule,
             currentLesson: selectedLesson,
             currentTopic: selectedTopic,
             title: '',
-            modules: course.modules,
+            modules: this.state.course.modules,
             lessons: lessons,
             topics: topics
-        }
-    }
+        })
+    };
 
     updateForm = event =>
         this.setState({
@@ -236,7 +256,7 @@ export default class CourseEditor extends Component {
 
                         <Provider store={store}>
                             <div>
-                                {console.log(this.state)}
+                                {console.log(this.state.currentTopic)}
                                 <WidgetListContainer
                                     topic={this.state.currentTopic}/>
                             </div>
